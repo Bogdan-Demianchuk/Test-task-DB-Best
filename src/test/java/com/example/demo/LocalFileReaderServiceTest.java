@@ -18,7 +18,7 @@ public class LocalFileReaderServiceTest {
     public void localFileReaderServiceCorrectRead() {
         List<String> actual = localFileReaderService
                 .read("src/test/java/com/example/demo/resources/testFile");
-        List<String> expected = List.of("IDX;IDY;LENGTH", "1;2;10", "2;3;20", "3;4;30", "3;5;15", "6;7;20");
+        List<String> expected = List.of("IDX,IDY,LENGTH", "1,2,10", "2,3,20", "3,4,30", "3,5,15", "6,7,20");
         assertEquals(actual, expected);
     }
 
