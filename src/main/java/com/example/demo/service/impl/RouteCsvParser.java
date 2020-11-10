@@ -2,29 +2,25 @@ package com.example.demo.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.demo.mapper.NodeMapper;
-import com.example.demo.model.Node;
+import com.example.demo.mapper.RouteMapper;
+import com.example.demo.model.Route;
 import com.example.demo.service.CsvParserService;
 import com.example.demo.service.FileReaderService;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class GraphCsvParser implements CsvParserService<Node> {
+public class RouteCsvParser implements CsvParserService<Route> {
     private final FileReaderService fileRiderService;
-    private final NodeMapper nodeMapper;
+    private final RouteMapper routeMapper;
 
-    @Autowired
-    public GraphCsvParser(FileReaderService fileRiderService, NodeMapper nodeMapper) {
+    public RouteCsvParser(FileReaderService fileRiderService, RouteMapper routeMapper) {
         this.fileRiderService = fileRiderService;
-        this.nodeMapper = nodeMapper;
+        this.routeMapper = routeMapper;
     }
 
     @Override
-    public List<Node> parseCsvFile(String path) {
-        List<Node> nodes = new ArrayList<>();
+    public List<Route> parseCsvFile(String path) {
+        List<Route> routes = new ArrayList<>();
         CsvParserSettings csvParserSettings = new CsvParserSettings();
         csvParserSettings.setMaxCharsPerColumn(-1);
         CsvParser csvParser = new CsvParser(csvParserSettings);
@@ -32,8 +28,8 @@ public class GraphCsvParser implements CsvParserService<Node> {
         lines.remove(0);
         for (String line : lines) {
             String[] nodeContent = csvParser.parseLine(line);
-            nodes.add(nodeMapper.nodeMapper(nodeContent));
+            routes.add(routeMapper.routeMapper(nodeContent));
         }
-        return nodes;
+        return routes;
     }
 }

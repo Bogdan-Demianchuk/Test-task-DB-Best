@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="graphs")
-public class Graph {
+@Table(name="nodes")
+public class Node {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -22,7 +22,7 @@ public class Graph {
     Long pointTo;
     Long length;
 
-    public Graph(Long from, Long to, Long length) {
+    public Node(Long from, Long to, Long length) {
         this.pointFrom = from;
         this.pointTo = to;
         this.length = length;
