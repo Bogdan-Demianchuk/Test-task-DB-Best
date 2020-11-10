@@ -9,6 +9,7 @@ import com.example.demo.service.FileReaderService;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +18,7 @@ public class GraphCsvParser implements CsvParserService<Node> {
     private final NodeMapper nodeMapper;
 
     @Autowired
-    public GraphCsvParser(FileReaderService fileRiderService, NodeMapper nodeMapper) {
+    public GraphCsvParser(@Qualifier("localFileReaderService") FileReaderService fileRiderService, NodeMapper nodeMapper) {
         this.fileRiderService = fileRiderService;
         this.nodeMapper = nodeMapper;
     }

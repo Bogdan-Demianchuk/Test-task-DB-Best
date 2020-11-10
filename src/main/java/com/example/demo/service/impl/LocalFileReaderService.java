@@ -17,7 +17,7 @@ public class LocalFileReaderService implements FileReaderService {
         try (Stream<String> lines = Files.lines(Paths.get(path))) {
             result = lines.collect(Collectors.toList());
         } catch (IOException e) {
-            throw new RuntimeException("Can't read file");
+            throw new RuntimeException("Can't read file", e);
         }
         return result;
     }
