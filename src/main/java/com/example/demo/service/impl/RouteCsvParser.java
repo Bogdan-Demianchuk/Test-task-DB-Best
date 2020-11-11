@@ -8,12 +8,15 @@ import com.example.demo.service.CsvParserService;
 import com.example.demo.service.FileReaderService;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RouteCsvParser implements CsvParserService<Route> {
     private final FileReaderService fileRiderService;
     private final RouteMapper routeMapper;
 
-    public RouteCsvParser(FileReaderService fileRiderService, RouteMapper routeMapper) {
+    public RouteCsvParser(@Qualifier("localFileReaderService") FileReaderService fileRiderService, RouteMapper routeMapper) {
         this.fileRiderService = fileRiderService;
         this.routeMapper = routeMapper;
     }

@@ -9,16 +9,15 @@ import com.example.demo.service.FileReaderService;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GraphCsvParser implements CsvParserService<Node> {
+public class NodeCsvParser implements CsvParserService<Node> {
     private final FileReaderService fileRiderService;
     private final NodeMapper nodeMapper;
 
     @Autowired
-    public GraphCsvParser(@Qualifier("localFileReaderService") FileReaderService fileRiderService, NodeMapper nodeMapper) {
+    public NodeCsvParser(FileReaderService fileRiderService, NodeMapper nodeMapper) {
         this.fileRiderService = fileRiderService;
         this.nodeMapper = nodeMapper;
     }

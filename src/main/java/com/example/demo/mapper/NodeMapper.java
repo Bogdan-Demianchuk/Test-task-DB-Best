@@ -11,8 +11,8 @@ public class NodeMapper {
     private static final int NODE_LENGTH = 2;
 
 
-    public Node nodeMapper(String[] nodeContent){
-        if (nodeContent.length != 3){
+    public Node nodeMapper(String[] nodeContent) {
+        if (nodeContent.length != 3) {
             throw new InvalidContentForMappingException("Data cannot be read like a node");
         }
         Node node = new Node();

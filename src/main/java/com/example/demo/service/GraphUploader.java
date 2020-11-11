@@ -11,13 +11,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GraphUploader {
-    final NodeRepository nodeRepository;
     private static Map<Long, Map<Long, Long>> graph = new HashMap<>();
     private static List<Long> processed = new ArrayList<>();
-
+    final NodeRepository nodeRepository;
 
     public GraphUploader(NodeRepository nodeRepository) {
         this.nodeRepository = nodeRepository;
+    }
+
+    private static Long findLowestCostNode(Map<Long, Long> costs) {
+        Long lowestCost = Long.MAX_VALUE;
+        Long lowestCostNode = null;
+        for (Map.Entry<Long, Long> node : costs.entrySet()) {
+            Long cost = node.getValue();
+            if (cost < lowestCost && !processed.contains(node.getKey())) {
+                lowestCost = cost;
+                lowestCostNode = node.getKey();
+            }
+        }
+        return lowestCostNode;
     }
 
     public void uploadGraph() {
@@ -31,9 +43,11 @@ public class GraphUploader {
     }
 
     public Long findShortestRoute(Route route) {
-        Map<Long, Long> start = graph.get(route.getPointFrom());
-        Map<Long, Long> costs = new HashMap<>(start);
+        Map<Long, Long> costs = new HashMap<>();
         costs.put(route.getPointTo(), Long.MAX_VALUE);
+        if (graph.containsKey(route.getPointFrom())) {
+            costs.putAll(graph.get(route.getPointFrom()));
+        }
         Long node = findLowestCostNode(costs);
         while (node != null) {
             Long cost = costs.get(node);
@@ -53,20 +67,7 @@ public class GraphUploader {
             processed.add(node);
             node = findLowestCostNode(costs);
         }
+        processed.clear();
         return costs.get(route.getPointTo());
-    }
-
-
-    private static Long findLowestCostNode(Map<Long, Long> costs) {
-        Long lowestCost = Long.MAX_VALUE;
-        Long lowestCostNode = null;
-        for (Map.Entry<Long, Long> node : costs.entrySet()) {
-            Long cost = node.getValue();
-            if (cost < lowestCost && !processed.contains(node.getKey())) {
-                lowestCost = cost;
-                lowestCostNode = node.getKey();
-            }
-        }
-        return lowestCostNode;
     }
 }

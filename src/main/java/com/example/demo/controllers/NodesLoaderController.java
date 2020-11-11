@@ -1,28 +1,37 @@
-package com.example.demo.service;
+package com.example.demo.controllers;
 
 import java.util.List;
 import com.example.demo.model.Node;
 import com.example.demo.repository.NodeRepository;
+import com.example.demo.service.CsvParserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DataLoader implements ApplicationRunner {
+public class NodesLoaderController implements ApplicationRunner {
     final NodeRepository nodeRepository;
-    final CsvParserService csvParserService;
+    final CsvParserService<Node> csvParserService;
+    @Value("${path.to.pipeline.file}")
+    private String path;
 
     @Autowired
-    public DataLoader(NodeRepository nodeRepository, CsvParserService csvParserService) {
+    public NodesLoaderController(NodeRepository nodeRepository, CsvParserService<Node> csvParserService) {
         this.nodeRepository = nodeRepository;
         this.csvParserService = csvParserService;
     }
 
     @Override
+
     public void run(ApplicationArguments args) {
-        List<Node> list = csvParserService.parseCsvFile("src/main/resources/testFile");
-        for(Node node :list){
+        updateNodesInDB();
+    }
+
+    public void updateNodesInDB() {
+        List<Node> list = csvParserService.parseCsvFile(path);
+        for (Node node : list) {
             nodeRepository.save(node);
         }
     }

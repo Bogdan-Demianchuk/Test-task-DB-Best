@@ -1,10 +1,10 @@
 package com.example.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import com.example.demo.service.impl.LocalFileReaderService;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,9 +24,11 @@ public class LocalFileReaderServiceTest {
 
     @Test
     public void localFileReaderServiceUnCorrectPath() {
-        Exception exception = assertThrows(RuntimeException.class, () ->
-            localFileReaderService.read("12/45")
-        );
-        assertEquals("Can't read file", exception.getMessage());
+        try {
+            localFileReaderService.read("12/45");
+            Assert.fail("Expected RuntimeException");
+        } catch (RuntimeException e) {
+            assertEquals("Can't read the file", e.getMessage());
+        }
     }
 }

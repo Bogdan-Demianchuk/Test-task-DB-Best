@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import com.example.demo.service.FileReaderService;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 @Service
+@Primary
 public class LocalFileReaderService implements FileReaderService {
     @Override
     public List<String> read(String path) {
@@ -17,7 +19,7 @@ public class LocalFileReaderService implements FileReaderService {
         try (Stream<String> lines = Files.lines(Paths.get(path))) {
             result = lines.collect(Collectors.toList());
         } catch (IOException e) {
-            throw new RuntimeException("Can't read file", e);
+            throw new RuntimeException("Can't read the file");
         }
         return result;
     }

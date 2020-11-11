@@ -3,7 +3,7 @@ package com.example.demo;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.demo.model.Node;
-import com.example.demo.service.impl.GraphCsvParser;
+import com.example.demo.service.impl.NodeCsvParser;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class NodeCsvParserTest {
     List<Node> expected = new ArrayList<>();
     @Autowired
-    GraphCsvParser graphCsvParser;
+    NodeCsvParser nodeCsvParser;
 
     @BeforeEach
     void init() {
@@ -28,8 +28,7 @@ public class NodeCsvParserTest {
 
     @Test
     public void parseCsvFileToGraphCorrectTest() {
-
-        List<Node> actual = graphCsvParser.parseCsvFile("src/test/java/com/example/demo/resources/testFile");
+        List<Node> actual = nodeCsvParser.parseCsvFile("src/test/java/com/example/demo/resources/testFile");
         Assert.assertEquals(expected, actual);
     }
 }

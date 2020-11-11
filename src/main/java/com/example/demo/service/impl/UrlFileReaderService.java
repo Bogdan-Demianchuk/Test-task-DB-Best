@@ -21,7 +21,7 @@ public class UrlFileReaderService implements FileReaderService {
              Stream<String> stream = reader.lines()) {
             stream.forEach(result::add);
         } catch (IOException e) {
-            throw new RuntimeException("Can't read file", e);
+            throw new RuntimeException("Can't read file");
         }
         return result;
     }
