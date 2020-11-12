@@ -24,15 +24,18 @@ public class NodesLoaderController implements ApplicationRunner {
     }
 
     @Override
-
     public void run(ApplicationArguments args) {
         updateNodesInDB();
     }
 
     public void updateNodesInDB() {
-        List<Node> list = csvParserService.parseCsvFile(path);
-        for (Node node : list) {
-            nodeRepository.save(node);
+        String[] paths = path.split(",");
+        List<Node> list;
+        for (String path : paths) {
+            list = csvParserService.parseCsvFile(path.trim());
+            for (Node node : list) {
+                nodeRepository.save(node);
+            }
         }
     }
 }

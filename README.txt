@@ -20,7 +20,7 @@ Launch project
 
 * Add Java SDK 11 or above in Project Structure.
 * Put CSV file that describes the water pipeline system in a folder src\main\resources\ and rename it to pipeline.
-Or change path.to.pipeline.file in application.properties
+Or change path.to.pipeline.file in application.properties (also, you can specify multiple paths separated by a comma)
 *If you want to use the URL path to file pipeline. Rearrange annotation @Primary from class LocalFileReaderService to UrlFileReaderService
 * Put CSV file with a set of points, between which you need to find the route in a folder src\main\resources\ and rename it to routes.
 Or change path.to.routes.file in src\main\resources\application.properties
