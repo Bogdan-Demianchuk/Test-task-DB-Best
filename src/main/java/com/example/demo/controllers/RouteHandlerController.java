@@ -12,9 +12,9 @@ import org.springframework.stereotype.Controller;
 @Slf4j
 @Controller
 public class RouteHandlerController {
-    final GraphUploader graphUploader;
-    final RouteCsvParser routeCsvParser;
-    final FileEditorService fileEditorService;
+    private final GraphUploader graphUploader;
+    private final RouteCsvParser routeCsvParser;
+    private final FileEditorService fileEditorService;
     List<Route> routes;
     @Value("${path.to.routes.file}")
     private String path;

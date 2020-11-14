@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NodesLoaderController implements ApplicationRunner {
-    final NodeRepository nodeRepository;
-    final CsvParserService<Node> csvParserService;
+    private final NodeRepository nodeRepository;
+    private final CsvParserService<Node> csvParserService;
     @Value("${path.to.pipeline.file}")
     private String path;
 

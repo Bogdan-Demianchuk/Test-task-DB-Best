@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Route {
-    Long pointFrom;
-    Long pointTo;
+    private Long pointFrom;
+    private Long pointTo;
 }

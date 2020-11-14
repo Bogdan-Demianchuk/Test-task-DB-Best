@@ -17,10 +17,10 @@ import lombok.NoArgsConstructor;
 public class Node {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Long pointFrom;
-    Long pointTo;
-    Long length;
+    private Long id;
+    private Long pointFrom;
+    private Long pointTo;
+    private Long length;
 
     public Node(Long from, Long to, Long length) {
         this.pointFrom = from;
