@@ -30,11 +30,14 @@ public class NodesLoaderController implements ApplicationRunner {
 
     public void updateNodesInDB() {
         String[] paths = path.split(",");
+        List<Node> allNodesInDB = nodeRepository.findAll();
         List<Node> list;
         for (String path : paths) {
             list = csvParserService.parseCsvFile(path.trim());
             for (Node node : list) {
-                nodeRepository.save(node);
+                if (!allNodesInDB.contains(node)) {
+                    nodeRepository.save(node);
+                }
             }
         }
     }
